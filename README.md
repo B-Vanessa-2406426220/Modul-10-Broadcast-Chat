@@ -15,3 +15,9 @@
 
 ## Modifying the websocket port
 Pada eksperimen ini, saya melakukan perubahan nomor port untuk komunikasi WebSocket dari port 2000 menjadi port 8080.Perubahan ini diimplementasikan dengan memodifikasi baris kode TcpListener::bind pada sisi server dan Uri::from_static pada sisi klien. Secara teknis, port berfungsi sebagai titik akhir komunikasi yang spesifik agar data dapat disalurkan ke aplikasi yang tepat di dalam sebuah alamat IP. Jika terdapat perbedaan konfigurasi port antara server dan klien, maka proses handshake WebSocket akan otomatis gagal. Kegagalan tersebut menyebabkan sistem menolak koneksi karena klien mencoba mengakses pintu yang tidak dibuka atau tidak disediakan oleh server. Keberhasilan eksperimen ini membuktikan bahwa sinkronisasi port antar endpoint adalah syarat mutlak dalam membangun koneksi jaringan asinkronus yang stabil.
+
+## Small changes. Add some information to client
+
+![Modify Result](Modify.png)
+
+Pada eksperimen ini, saya memodifikasi server untuk menampilkan alamat IP dan port pengirim ke dalam setiap pesan yang broadcast. Perubahan ini dilakukan pada fungsi handle_connection dengan menggunakan makro format! untuk menggabungkan variabel addr dan teks pesan.Di sisi klien, saya menambahkan identitas "Vanessa's Computer" pada log terminal. Modifikasi di server bertujuan memberikan identitas pengirim secara otomatis. Penambahan di sisi klien berfungsi sebagai penanda visual untuk memverifikasi bahwa data telah berhasil diterima dan dicetak oleh aplikasi saya. Secara teknis, pemakaian variabel addr ini juga berhasil menghilangkan peringatan unused variable sehingga kode menjadi lebih bersih dan fungsional.
